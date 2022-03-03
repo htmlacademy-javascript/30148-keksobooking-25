@@ -1,19 +1,25 @@
 // https://habr.com/ru/post/312880/
 
-const errorMsg = 'only 0 or positive';
-
-const getRandom = (a, b) => {
-  const min = Math.ceil(Math.min(a, b));
-  const max = Math.floor(Math.max(a, b));
-
-  const result = min + Math.random() * (max - min + 1);
-
-  return result;
+const getRandom = (min, max) => {
+  if(min >= max) {
+    throw new Error('Max should be more than min');
+  }
+  return min + Math.random() * (max - min + 1);
 };
 
-const getRandomInteger = (a = 0, b = 1) => a < 0 || b < 0 ? errorMsg : Math.floor(getRandom(a, b));
+const getRandomInteger = (min = 0, max = 1) => {
+  if(min < 0 || max < 0) {
+    throw new Error('Only 0 or positive');
+  }
+  return Math.floor(getRandom(min, max));
+};
 
-const getRandomFloatInteger = (a = 0, b = 1, digits = 0) => a < 0 || b < 0 ? errorMsg : parseFloat(getRandom(a, b).toFixed(digits));
+const getRandomFloatInteger = (min = 0, max = 1, digits = 0)  => {
+  if(min < 0 || max < 0) {
+    throw new Error('Only 0 or positive');
+  }
+  return parseFloat(getRandom(min, max).toFixed(digits));
+};
 
-getRandomInteger(597, 2);
-getRandomFloatInteger(597.7, 2, 7);
+getRandomInteger(0, 7);
+getRandomFloatInteger(2, 44, 7);
