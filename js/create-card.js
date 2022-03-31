@@ -5,10 +5,10 @@ const CARDS_COUNT = 10;
 
 const getAvatarNumber = () => String(getRandomInteger(1, 10)).padStart(2, 0);
 const getLocation = () => (
-	{
-		lat: getRandomFloat(35.65000, 35.70000, 5),
-		lng: getRandomFloat(139.70000, 139.80000, 5)
-	}
+  {
+    lat: getRandomFloat(35.65000, 35.70000, 5),
+    lng: getRandomFloat(139.70000, 139.80000, 5)
+  }
 );
 
 const createCard = () => {
@@ -39,4 +39,4 @@ const getCards = () => Array.from({length: CARDS_COUNT}, createCard);
 
 const cards = getCards();
 
-export { cards }
+export { cards };
