@@ -37,6 +37,4 @@ const createCard = () => {
 
 const getCards = () => Array.from({length: CARDS_COUNT}, createCard);
 
-const cards = getCards();
-
-export { cards };
+export { getCards };
