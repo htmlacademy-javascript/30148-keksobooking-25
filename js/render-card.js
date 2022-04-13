@@ -2,6 +2,9 @@ const popupTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
 
+  const mapTemplate = document.querySelector('#map-canvas');
+
+
 const generateFeatureList = (card, features) => {
   const featuresList = card.querySelector('.popup__features');
   featuresList.innerHTML = '';
@@ -43,7 +46,7 @@ const renderTextNode = ((item, classTtle, value, text = value) => {
   }
 });
 
-const similarCard = ({offer, author}) => {
+const getSimilarCard = ({offer, author}) => {
   const card = popupTemplate.cloneNode(true);
   renderTextNode(card, '.popup__title', offer.title);
   renderTextNode(card, '.popup__text--address', offer.address);
@@ -74,4 +77,8 @@ const similarCard = ({offer, author}) => {
   return card;
 };
 
-export {similarCard};
+const renderCard = (ad) => {
+  mapTemplate.insertAdjacentElement('beforeend', getSimilarCard(ad));
+};
+
+export {renderCard};
