@@ -1,6 +1,7 @@
 import {getCards} from './create-card.js';
+import {renderCard} from './render-card.js';
+
 
 const cards = getCards();
 
-// eslint-disable-next-line no-console
-console.log(cards);
+renderCard(cards[0]);

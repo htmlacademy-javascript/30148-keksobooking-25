@@ -1,7 +1,8 @@
 import {getRandomInteger, getRandomFloat, getRandomElement, getUniqueArr} from './utils.js';
-import {TITLES, TYPES, CHECKTIMES, FEATURES, DESCRIPTIONS, PHOTOS} from './mock.js';
-const CARDS_COUNT = 10;
+import {TITLES, CHECKTIMES, FEATURES, DESCRIPTIONS, PHOTOS} from './mock.js';
+import {OFFER_TYPES} from './enum/offer-types.js';
 
+const CARDS_COUNT = 10;
 
 const getAvatarNumber = () => String(getRandomInteger(1, 10)).padStart(2, 0);
 const getLocation = () => (
@@ -22,7 +23,7 @@ const createCard = () => {
       title: getRandomElement(TITLES),
       address: `${location.lat}, ${location.lng}`,
       price: getRandomInteger(0, 500000),
-      type: getRandomElement(TYPES),
+      type: getRandomElement(Object.values(OFFER_TYPES)),
       rooms: getRandomInteger(0, 10),
       guests: getRandomInteger(0, 13),
       checkin: getRandomElement(CHECKTIMES),
