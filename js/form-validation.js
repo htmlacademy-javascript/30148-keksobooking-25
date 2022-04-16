@@ -15,7 +15,6 @@ const pristine = new Pristine(form, {
   errorTextClass: 'ad-form__error-msg',
 }, false);
 
-
 const validatePrice = () => price.value >= OFFER_PRICES[adType.value];
 
 const validateRooms = (value) => CAPACITY_OPTIONS[roomNumber.value].includes(value);
@@ -53,7 +52,6 @@ pristine.addValidator(
   validatePrice,
   typePriceErrorMsg
 );
-
 
 const validateForm = () => form.addEventListener('submit', (evt) => {
   evt.preventDefault();
