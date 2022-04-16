@@ -1,14 +1,8 @@
-import { getCards } from './create-card.js';
-import { renderCard } from './render-card.js';
-import { toggleAdFormState, toggleFilterState } from './form.js';
 import { validateForm } from './form-validation.js';
+import './price-slider.js';
 
+import './map.js';
 
-const cards = getCards();
-
-renderCard(cards[0]);
-
-toggleAdFormState(false);
-toggleFilterState(false);
+// const cards = getCards();
 
 validateForm();

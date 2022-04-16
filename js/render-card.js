@@ -77,8 +77,8 @@ const getSimilarCard = ({offer, author}) => {
   return card;
 };
 
-const renderCard = (ad) => {
-  mapTemplate.insertAdjacentElement('beforeend', getSimilarCard(ad));
-};
+// const renderCard = (ad) => {
+//   mapTemplate.insertAdjacentElement('beforeend', getSimilarCard(ad));
+// };
 
-export {renderCard};
+export {getSimilarCard};
