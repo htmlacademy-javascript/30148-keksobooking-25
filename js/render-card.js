@@ -2,7 +2,7 @@ const popupTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
 
-const mapTemplate = document.querySelector('#map-canvas');
+// const mapTemplate = document.querySelector('#map-canvas');
 
 
 const generateFeatureList = (card, features) => {
