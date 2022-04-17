@@ -1,13 +1,10 @@
 import { toggleAdFormState, toggleFilterState } from './form.js';
-import { getCards } from './create-card.js';
 import { getSimilarCard } from './render-card.js';
 
 const address = document.querySelector('#address');
 const DEFAULT_LAT = 35.68948;
 const DEFAULT_LNG = 139.69170;
-const cards = getCards();
 const map = L.map('map-canvas');
-
 
 const mainPinIcon = L.icon({
   iconUrl: './img/main-pin.svg',
@@ -56,12 +53,12 @@ const renderMarkers = (offers) => {
 
 mainPinMarker.addTo(map);
 
-map
+const createMap = (point) => {map
   .on('load', () => {
     toggleAdFormState(false);
     toggleFilterState(false);
     address.value = `${DEFAULT_LAT}, ${DEFAULT_LNG}`;
-    renderMarkers(cards);
+    renderMarkers(point);
   })
   .setView({
     lat: DEFAULT_LAT,
@@ -74,8 +71,11 @@ L.tileLayer(
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   },
 ).addTo(map);
+};
 
 mainPinMarker.on('moveend', (evt) => {
   const coordinates = evt.target.getLatLng();
   address.value = `${coordinates.lat.toFixed(5)}, ${coordinates.lng.toFixed(5)}`;
 });
+
+export { createMap };

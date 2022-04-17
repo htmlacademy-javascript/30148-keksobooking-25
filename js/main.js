@@ -1,8 +1,11 @@
+import { getCards } from './create-card.js';
+import { createMap } from './map.js';
 import { validateForm } from './form-validation.js';
-import './price-slider.js';
+import { initSlider } from './price-slider.js';
 
-import './map.js';
+const cards = getCards();
 
-// const cards = getCards();
+createMap(cards);
 
+initSlider();
 validateForm();
