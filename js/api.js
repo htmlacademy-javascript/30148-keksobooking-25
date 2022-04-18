@@ -1,4 +1,4 @@
-const GET_URL = 'https://25.javascript.pages.academy/keksobooking/data';
+const GET_URL = 'https://25.javascript.pages.academy/keksobooking/data1';
 const SEND_URL = 'https://25.javascript.pages.academy/keksobooking';
 
 const getData = (onSuccess, onFail) => {

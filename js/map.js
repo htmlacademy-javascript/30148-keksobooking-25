@@ -1,6 +1,5 @@
 import { toggleAdFormState, toggleFilterState } from './state.js';
 import { getSimilarCard } from './render-card.js';
-import { getData } from './api.js';
 import { renderError } from './failed-request.js';
 import { createMainPin, createAdPin } from './create-pins.js';
 import { MAP_SETTINGS, setDefaultAddress } from './map-defaults.js';
@@ -50,18 +49,10 @@ const onSuccess = (points) => {
   renderMarkers(points.slice(0, OFFERS_LENGTH));
 };
 
-const onError = () => {
-  renderError();
-  toggleFilterState();
-};
-
 mainPinMarker.addTo(map);
 
-const createMap = (cards) => {
+const renderMap = () => {
   map
-    .on('load', () => {
-      onSuccess(cards);
-    })
     .setView({
       lat: MAP_SETTINGS.lat,
       lng: MAP_SETTINGS.lng,
@@ -73,6 +64,19 @@ const createMap = (cards) => {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     },
   ).addTo(map);
+};
+
+const createMap = (cards) => {
+  map
+    .on('load', () => {
+      if(cards.length) {onSuccess(cards);}
+    });
+  renderMap();
+};
+const onError = () => {
+  renderError();
+  toggleFilterState();
+  renderMap();
 };
 
 mainPinMarker.on('moveend', (evt) => {
