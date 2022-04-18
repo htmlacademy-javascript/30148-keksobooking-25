@@ -42,17 +42,22 @@ const onFail = () => {
   createPopup(errorTemplate);
 };
 
-form.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  const formData = new FormData(evt.target);
-  const isValid = validateForm();
+const onDataSend = () => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const formData = new FormData(evt.target);
+    const isValid = validateForm();
 
-  if(isValid) {
-    toggleSendBtnState();
-    sendData(
-      onSuccess,
-      onFail,
-      formData
-    );
+    if(isValid) {
+      toggleSendBtnState();
+      sendData(
+        onSuccess,
+        onFail,
+        formData
+      );
+    }
   }
-});
+  );
+};
+
+export { onDataSend };
