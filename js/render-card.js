@@ -2,7 +2,7 @@ const popupTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
 
-const mapTemplate = document.querySelector('#map-canvas');
+// const mapTemplate = document.querySelector('#map-canvas');
 
 
 const generateFeatureList = (card, features) => {
@@ -77,8 +77,8 @@ const getSimilarCard = ({offer, author}) => {
   return card;
 };
 
-const renderCard = (ad) => {
-  mapTemplate.insertAdjacentElement('beforeend', getSimilarCard(ad));
-};
+// const renderCard = (ad) => {
+//   mapTemplate.insertAdjacentElement('beforeend', getSimilarCard(ad));
+// };
 
-export {renderCard};
+export {getSimilarCard};
