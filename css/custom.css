@@ -2,3 +2,18 @@
 	color: #ff5635;
 	font-size: 14px;
 }
+
+.error-loading {
+	background-color: rgba(0, 0, 0, 0.7);
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000;
+}
+
+.error-loading .error__message {
+	font-size: 18px;
+	color: #fff;
+	text-align: center;
+}
