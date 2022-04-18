@@ -43,11 +43,11 @@ const renderMarkers = (offers) => {
   offers.forEach((offer) => createMarker(offer));
 };
 
-const onSuccess = (point) => {
+const onSuccess = (points) => {
   toggleAdFormState(false);
   toggleFilterState(false);
   setDefaultAddress();
-  renderMarkers(point.slice(0, OFFERS_LENGTH));
+  renderMarkers(points.slice(0, OFFERS_LENGTH));
 };
 
 const onError = () => {
@@ -57,13 +57,10 @@ const onError = () => {
 
 mainPinMarker.addTo(map);
 
-const createMap = () => {
+const createMap = (cards) => {
   map
     .on('load', () => {
-      getData(
-        onSuccess,
-        onError
-      );
+      onSuccess(cards);
     })
     .setView({
       lat: MAP_SETTINGS.lat,
@@ -87,4 +84,4 @@ const resetMap = () => {
   setMainPinMarkerCoords(MAP_SETTINGS);
 };
 
-export { createMap, resetMap };
+export { createMap, resetMap, onError };
