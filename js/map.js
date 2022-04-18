@@ -49,10 +49,12 @@ const onSuccess = (points) => {
   renderMarkers(points.slice(0, OFFERS_LENGTH));
 };
 
-mainPinMarker.addTo(map);
-
-const renderMap = () => {
+const createMap = (cards) => {
+  mainPinMarker.addTo(map);
   map
+    .on('load', () => {
+      if(cards.length) {onSuccess(cards);}
+    })
     .setView({
       lat: MAP_SETTINGS.lat,
       lng: MAP_SETTINGS.lng,
@@ -66,23 +68,16 @@ const renderMap = () => {
   ).addTo(map);
 };
 
-const createMap = (cards) => {
-  map
-    .on('load', () => {
-      if(cards.length) {onSuccess(cards);}
-    });
-  renderMap();
-};
-const onError = () => {
-  renderError();
-  toggleFilterState();
-  renderMap();
-};
-
 mainPinMarker.on('moveend', (evt) => {
   const coordinates = evt.target.getLatLng();
   address.value = `${coordinates.lat.toFixed(5)}, ${coordinates.lng.toFixed(5)}`;
 });
+
+const onError = () => {
+  createMap([]);
+  renderError();
+  toggleFilterState();
+};
 
 const resetMap = () => {
   setMainPinMarkerCoords(MAP_SETTINGS);
