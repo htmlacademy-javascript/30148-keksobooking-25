@@ -37,10 +37,13 @@ const getUniqueArr = (arr) => {
   return sortedArr.slice(0, randomLength);
 };
 
+const isEscapeKey = (key) => key === 'Escape';
+
 export {
   getRandom,
   getRandomInteger,
   getRandomFloat,
   getRandomElement,
-  getUniqueArr
+  getUniqueArr,
+  isEscapeKey
 };

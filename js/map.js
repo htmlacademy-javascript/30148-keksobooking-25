@@ -1,33 +1,24 @@
-import { toggleAdFormState, toggleFilterState } from './form.js';
+import { toggleAdFormState, toggleFilterState } from './state.js';
 import { getSimilarCard } from './render-card.js';
+import { renderError } from './failed-request.js';
+import { createMainPin, createAdPin } from './create-pins.js';
+import { MAP_SETTINGS, setDefaultAddress } from './map-defaults.js';
 
-const address = document.querySelector('#address');
-const DEFAULT_LAT = 35.68948;
-const DEFAULT_LNG = 139.69170;
+const OFFERS_LENGTH = 10;
 const map = L.map('map-canvas');
-
-const mainPinIcon = L.icon({
-  iconUrl: './img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
-});
-
-const adPinIcon = L.icon({
-  iconUrl: './img/pin.svg',
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
-});
+const address = document.querySelector('#address');
 
 const mainPinMarker = L.marker(
   {
-    lat: DEFAULT_LAT,
-    lng: DEFAULT_LNG
+    lat: MAP_SETTINGS.lat,
+    lng: MAP_SETTINGS.lng
   },
   {
     draggable: true,
-    icon: mainPinIcon,
+    icon: createMainPin(),
   },
 );
+const setMainPinMarkerCoords = (coords) => mainPinMarker.setLatLng([coords.lat, coords.lng]);
 
 const markerGroup = L.layerGroup().addTo(map);
 
@@ -39,7 +30,7 @@ const createMarker = (offer) => {
       lng: location.lng,
     },
     {
-      icon: adPinIcon,
+      icon: createAdPin(),
     },
   );
   adMarker
@@ -51,26 +42,30 @@ const renderMarkers = (offers) => {
   offers.forEach((offer) => createMarker(offer));
 };
 
-mainPinMarker.addTo(map);
+const onSuccess = (points) => {
+  toggleAdFormState(false);
+  toggleFilterState(false);
+  setDefaultAddress();
+  renderMarkers(points.slice(0, OFFERS_LENGTH));
+};
 
-const createMap = (point) => {map
-  .on('load', () => {
-    toggleAdFormState(false);
-    toggleFilterState(false);
-    address.value = `${DEFAULT_LAT}, ${DEFAULT_LNG}`;
-    renderMarkers(point);
-  })
-  .setView({
-    lat: DEFAULT_LAT,
-    lng: DEFAULT_LNG,
-  }, 10);
+const createMap = (cards) => {
+  mainPinMarker.addTo(map);
+  map
+    .on('load', () => {
+      if(cards.length) {onSuccess(cards);}
+    })
+    .setView({
+      lat: MAP_SETTINGS.lat,
+      lng: MAP_SETTINGS.lng,
+    }, 13);
 
-L.tileLayer(
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-  {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  },
-).addTo(map);
+  L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    },
+  ).addTo(map);
 };
 
 mainPinMarker.on('moveend', (evt) => {
@@ -78,4 +73,14 @@ mainPinMarker.on('moveend', (evt) => {
   address.value = `${coordinates.lat.toFixed(5)}, ${coordinates.lng.toFixed(5)}`;
 });
 
-export { createMap };
+const onError = () => {
+  createMap([]);
+  renderError();
+  toggleFilterState();
+};
+
+const resetMap = () => {
+  setMainPinMarkerCoords(MAP_SETTINGS);
+};
+
+export { createMap, resetMap, onError };

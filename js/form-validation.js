@@ -1,4 +1,4 @@
-import {OFFER_PRICES} from './enum/offer-prices.js';
+import { OFFER_PRICES } from './enum/offer-prices.js';
 import { CAPACITY_OPTIONS } from './enum/capacity.js';
 
 const form = document.querySelector('.ad-form');
@@ -8,6 +8,7 @@ const roomNumber = form.querySelector('#room_number');
 const capacity = form.querySelector('#capacity');
 const timein = form.querySelector('#timein');
 const timeout = form.querySelector('#timeout');
+const slider = document.querySelector('.ad-form__slider');
 
 const pristine = new Pristine(form, {
   classTo: 'ad-form__element',
@@ -22,6 +23,12 @@ const validateRooms = (value) => CAPACITY_OPTIONS[roomNumber.value].includes(val
 const onAdTypeChange = () => {
   price.placeholder = OFFER_PRICES[adType.value];
   pristine.validate(validatePrice);
+
+  const nouislider = slider.noUiSlider;
+  nouislider.updateOptions({range: {
+    min: OFFER_PRICES[adType.value],
+    max: 100000
+  }});
 };
 
 const onRoomsChange = () => {
@@ -53,9 +60,6 @@ pristine.addValidator(
   typePriceErrorMsg
 );
 
-const validateForm = () => form.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  pristine.validate();
-});
+const validateForm = () => pristine.validate();
 
-export {validateForm};
+export { validateForm };

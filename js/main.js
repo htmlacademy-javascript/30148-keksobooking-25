@@ -1,11 +1,12 @@
-import { getCards } from './create-card.js';
-import { createMap } from './map.js';
-import { validateForm } from './form-validation.js';
+import { createMap, onError } from './map.js';
+import { getData } from './api.js';
 import { initSlider } from './price-slider.js';
+import { onDataSend } from './form.js';
 
-const cards = getCards();
 
-createMap(cards);
+getData((cards) => createMap(cards), () => {
+  onError();
+});
 
 initSlider();
-validateForm();
+onDataSend();

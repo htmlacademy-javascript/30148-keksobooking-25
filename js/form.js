@@ -1,13 +1,63 @@
-import { toggleState } from './state.js';
+import { sendData } from './api.js';
+import { toggleSendBtnState } from './state.js';
+import { createPopup } from './popup.js';
+import { setDefaultAddress } from './map-defaults.js';
+import { validateForm } from './form-validation.js';
+import { resetMap } from './map.js';
 
-const adForm = document.querySelector('.ad-form');
-const filter = document.querySelector('.map__filters');
+const form = document.querySelector('.ad-form');
+const filters = document.querySelector('.map__filters');
+const resetBtn = form.querySelector('.ad-form__reset');
+const price = form.querySelector('#price');
+const successTemplate = document.querySelector('#success')
+  .content
+  .querySelector('.success');
 
-const toggleAdFormState = (value = true) => {
-  toggleState(adForm, 'ad-form--disabled', value);
+const errorTemplate = document.querySelector('#error')
+  .content
+  .querySelector('.error');
+
+const resetForm = () => {
+  form.reset();
+  filters.reset();
+  toggleSendBtnState(false);
+  setDefaultAddress();
+  resetMap();
+  price.placeholder = 1000;
 };
-const toggleFilterState = (value = true) => {
-  toggleState(filter, 'map__filters-disabled', value);
+
+resetBtn.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  resetForm();
+});
+
+const onSuccess = () => {
+  resetForm();
+  toggleSendBtnState(false);
+  createPopup(successTemplate);
 };
 
-export {toggleAdFormState, toggleFilterState};
+const onFail = () => {
+  toggleSendBtnState(false);
+  createPopup(errorTemplate);
+};
+
+const onDataSend = () => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const formData = new FormData(evt.target);
+    const isValid = validateForm();
+
+    if(isValid) {
+      toggleSendBtnState();
+      sendData(
+        onSuccess,
+        onFail,
+        formData
+      );
+    }
+  }
+  );
+};
+
+export { onDataSend };
