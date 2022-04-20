@@ -1,10 +1,10 @@
-import { toggleAdFormState, toggleFilterState } from './state.js';
+import { toggleAdFormState, toggleFilterState } from '../state.js';
 import { getSimilarCard } from './render-card.js';
 import { renderError } from './failed-request.js';
 import { createMainPin, createAdPin } from './create-pins.js';
 import { MAP_SETTINGS, setDefaultAddress } from './map-defaults.js';
 import { filterOffers, setFilterChange } from './filters.js';
-import { debounce } from './utils.js';
+import { debounce } from '../utils.js';
 
 const OFFERS_LENGTH = 10;
 const DEBOUNCE_DELAY = 500;

@@ -1,4 +1,4 @@
-import {PRICE_CLASSIFICATION} from './enum/filter-prices.js';
+import {PRICE_CLASSIFICATION} from '../enum/filter-prices.js';
 
 const mapFilters = document.querySelector('.map__filters');
 const housingTypeFilter = mapFilters.querySelector('#housing-type');
