@@ -28,17 +28,4 @@ const initSlider = () => {
   });
 };
 
-export {initSlider};
-
-// const onAdTypeChange = () => {
-//   price.placeholder = OFFER_PRICES[adType.value];
-
-//   slider.noUiSlider.updateOptions({
-//     range: {
-//       min: OFFER_PRICES[adType.value],
-//       max: 100000
-//     }
-//   });
-// };
-
-// adType.addEventListener('change', onAdTypeChange);
+export { initSlider };

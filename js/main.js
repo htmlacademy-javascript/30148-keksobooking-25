@@ -3,7 +3,6 @@ import { getData } from './api.js';
 import { initSlider } from './price-slider.js';
 import { onDataSend } from './form.js';
 
-
 getData((cards) => createMap(cards), () => {
   onError();
 });
