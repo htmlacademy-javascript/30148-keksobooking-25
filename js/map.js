@@ -3,8 +3,11 @@ import { getSimilarCard } from './render-card.js';
 import { renderError } from './failed-request.js';
 import { createMainPin, createAdPin } from './create-pins.js';
 import { MAP_SETTINGS, setDefaultAddress } from './map-defaults.js';
+import { filterOffers, setFilterChange } from './filters.js';
+import { debounce } from './utils.js';
 
 const OFFERS_LENGTH = 10;
+const DEBOUNCE_DELAY = 500;
 const map = L.map('map-canvas');
 const address = document.querySelector('#address');
 
@@ -39,14 +42,18 @@ const createMarker = (offer) => {
 };
 
 const renderMarkers = (offers) => {
-  offers.forEach((offer) => createMarker(offer));
+  offers.slice().slice(0, OFFERS_LENGTH).forEach((offer) => createMarker(offer));
 };
 
 const onSuccess = (points) => {
   toggleAdFormState(false);
   toggleFilterState(false);
   setDefaultAddress();
-  renderMarkers(points.slice(0, OFFERS_LENGTH));
+  renderMarkers(points);
+  setFilterChange(debounce(() => {
+    markerGroup.clearLayers();
+    renderMarkers(filterOffers(points));
+  }, DEBOUNCE_DELAY));
 };
 
 const createMap = (cards) => {

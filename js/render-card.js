@@ -1,9 +1,8 @@
+import {OFFER_TYPES} from './enum/offer-types.js';
+
 const popupTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
-
-// const mapTemplate = document.querySelector('#map-canvas');
-
 
 const generateFeatureList = (card, features) => {
   const featuresList = card.querySelector('.popup__features');
@@ -51,7 +50,7 @@ const getSimilarCard = ({offer, author}) => {
   renderTextNode(card, '.popup__title', offer.title);
   renderTextNode(card, '.popup__text--address', offer.address);
   renderTextNode(card, '.popup__text--price', offer.price, `${offer.price} ₽/ночь`);
-  renderTextNode(card, '.popup__type', offer.type);
+  renderTextNode(card, '.popup__type', Object.values(OFFER_TYPES[offer.type]).join(''));
   renderTextNode(card, '.popup__text--capacity', (offer.rooms && offer.guests), `${offer.rooms} комнаты для ${offer.guests} гостей`);
   renderTextNode(card, '.popup__text--time', offer.checkin && offer.checkout, `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`);
   renderTextNode(card, '.popup__description', offer.description);
@@ -77,8 +76,4 @@ const getSimilarCard = ({offer, author}) => {
   return card;
 };
 
-// const renderCard = (ad) => {
-//   mapTemplate.insertAdjacentElement('beforeend', getSimilarCard(ad));
-// };
-
-export {getSimilarCard};
+export { getSimilarCard };
