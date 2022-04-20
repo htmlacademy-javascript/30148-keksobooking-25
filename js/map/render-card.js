@@ -1,4 +1,4 @@
-import {OFFER_TYPES} from './enum/offer-types.js';
+import {OFFER_TYPES} from '../enum/offer-types.js';
 
 const popupTemplate = document.querySelector('#card')
   .content

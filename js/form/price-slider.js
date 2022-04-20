@@ -1,4 +1,4 @@
-import { OFFER_PRICES } from './enum/offer-prices.js';
+import { OFFER_PRICES } from '../enum/offer-prices.js';
 
 const slider = document.querySelector('.ad-form__slider');
 const price = document.querySelector('#price');
