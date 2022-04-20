@@ -42,7 +42,7 @@ const createMarker = (offer) => {
 };
 
 const renderMarkers = (offers) => {
-  offers.slice().slice(0, OFFERS_LENGTH).forEach((offer) => createMarker(offer));
+  offers.slice(0, OFFERS_LENGTH).forEach((offer) => createMarker(offer));
 };
 
 const onSuccess = (points) => {

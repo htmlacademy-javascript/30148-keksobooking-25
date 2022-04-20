@@ -29,12 +29,12 @@ const generatePhotos = (templateElement, data) => {
   photosContainer.append(photosFragment);
 };
 
-const createTextNode = (item, classTtle, text) => {
-  item.querySelector(classTtle).textContent = text;
+const createTextNode = (item, classTitle, text) => {
+  item.querySelector(classTitle).textContent = text;
 };
 
-const hideTextNode = (item, classTtle) => {
-  item.querySelector(classTtle).classList.add('hidden');
+const hideTextNode = (item, classTitle) => {
+  item.querySelector(classTitle).classList.add('hidden');
 };
 
 const renderTextNode = ((item, classTtle, value, text = value) => {
@@ -50,7 +50,7 @@ const getSimilarCard = ({offer, author}) => {
   renderTextNode(card, '.popup__title', offer.title);
   renderTextNode(card, '.popup__text--address', offer.address);
   renderTextNode(card, '.popup__text--price', offer.price, `${offer.price} ₽/ночь`);
-  renderTextNode(card, '.popup__type', Object.values(OFFER_TYPES[offer.type]).join(''));
+  renderTextNode(card, '.popup__type', OFFER_TYPES[offer.type]);
   renderTextNode(card, '.popup__text--capacity', (offer.rooms && offer.guests), `${offer.rooms} комнаты для ${offer.guests} гостей`);
   renderTextNode(card, '.popup__text--time', offer.checkin && offer.checkout, `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`);
   renderTextNode(card, '.popup__description', offer.description);
