@@ -1,5 +1,5 @@
-import { OFFER_PRICES } from './enum/offer-prices.js';
-import { CAPACITY_OPTIONS } from './enum/capacity.js';
+import { OFFER_PRICES } from '../enum/offer-prices.js';
+import { CAPACITY_OPTIONS } from '../enum/capacity.js';
 
 const form = document.querySelector('.ad-form');
 const price = form.querySelector('#price');

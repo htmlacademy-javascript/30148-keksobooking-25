@@ -1,7 +1,8 @@
-import { createMap, onError } from './map.js';
+import { createMap, onError } from './map/map.js';
 import { getData } from './api.js';
-import { initSlider } from './price-slider.js';
-import { onDataSend } from './form.js';
+import { initSlider } from './form/price-slider.js';
+import { onDataSend } from './form/form.js';
+import { createPicturesPreview } from './photo.js';
 
 getData((cards) => createMap(cards), () => {
   onError();
@@ -9,3 +10,4 @@ getData((cards) => createMap(cards), () => {
 
 initSlider();
 onDataSend();
+createPicturesPreview();

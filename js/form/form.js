@@ -1,9 +1,9 @@
-import { sendData } from './api.js';
-import { toggleSendBtnState } from './state.js';
-import { createPopup } from './popup.js';
-import { setDefaultAddress } from './map-defaults.js';
+import { sendData } from '../api.js';
+import { toggleSendBtnState } from '../state.js';
+import { createPopup } from '../popup.js';
+import { setDefaultAddress } from '../map/map-defaults.js';
 import { validateForm } from './form-validation.js';
-import { resetMap } from './map.js';
+import { resetMap } from '../map/map.js';
 
 const form = document.querySelector('.ad-form');
 const filters = document.querySelector('.map__filters');

@@ -1,4 +1,4 @@
-import {PRICE_CLASSIFICATION} from './enum/filter-prices.js';
+import {PRICE_CLASSIFICATION} from '../enum/filter-prices.js';
 
 const mapFilters = document.querySelector('.map__filters');
 const housingTypeFilter = mapFilters.querySelector('#housing-type');
@@ -18,7 +18,7 @@ const filterByGuests = ({offer}) => (guestsFilter.value === 'any' || offer.guest
 const filterByFeatures = ({offer}) => {
   const filtersFeatures = [];
   const checkedFilters = document.querySelector('.map__features').querySelectorAll('input:checked');
-  checkedFilters.map((el) => filtersFeatures.push(el.value));
+  checkedFilters.forEach((el) => filtersFeatures.push(el.value));
   if (offer.features) {
     return filtersFeatures.every((feature) => offer.features.includes(feature));
   }
